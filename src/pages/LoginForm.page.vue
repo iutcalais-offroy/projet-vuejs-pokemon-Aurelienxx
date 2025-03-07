@@ -44,7 +44,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { loginUser, createUser } from './../apis/User.api.ts';
+import { loginUser, createUser } from './../store/User.store.ts';
 
 const email = ref('');
 const mdp = ref('');

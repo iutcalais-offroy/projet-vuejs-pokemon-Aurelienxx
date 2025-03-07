@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-const API_URL = 'https://pokemon-api-seyrinian-production.up.railway.app/user';
 
 interface LoginData {
     email: string;
