@@ -17,6 +17,7 @@ declare module 'vue' {
     NFormItemRow: typeof import('naive-ui')['NFormItemRow']
     NH1: typeof import('naive-ui')['NH1']
     NInput: typeof import('naive-ui')['NInput']
+    NInputNumber: typeof import('naive-ui')['NInputNumber']
     NLayout: typeof import('naive-ui')['NLayout']
     NLayoutContent: typeof import('naive-ui')['NLayoutContent']
     NLayoutHeader: typeof import('naive-ui')['NLayoutHeader']
@@ -26,6 +27,7 @@ declare module 'vue' {
     NTabPane: typeof import('naive-ui')['NTabPane']
     NTabs: typeof import('naive-ui')['NTabs']
     NText: typeof import('naive-ui')['NText']
+    PokemonCard: typeof import('./src/components/PokemonCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
