@@ -1,11 +1,12 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { fetchAllPokemon } from './../store/Pokemon.store.ts';
+import { fetchAllPokemon, createDeck } from './../store/Pokemon.store.ts';
 import PokemonCard from './../components/PokemonCard.vue';
 
 const list = ref([]);
 const pokemonsearch = ref('');
 const deck = ref([]);
+const cartes = ref([]);
 
 const pokemonfilter = computed(() => {
     if (!pokemonsearch.value) {
@@ -17,6 +18,18 @@ const pokemonfilter = computed(() => {
     );
 });
 
+const ajoutDeck = (pokemon) => {
+    deck.value.push(pokemon);
+};
+
+const supprimeDeck = (pokemon) => {
+    const index = deck.value.findIndex(p => p.id === pokemon.id);
+  if (index !== -1) {
+    deck.value.splice(index, 1);
+  }
+};
+
+
 const fetchAll = async () => {
     try {
         const response = await fetchAllPokemon({});
@@ -26,9 +39,23 @@ const fetchAll = async () => {
     }
 };
 
-const addToDeck = (pokemon) => {
-    deck.value.push(pokemon);
+const CreateDeck = async (nom) => {
+    const cartes = deck.value.map(pokemon => pokemon.id);
+
+    try {
+        const response = await createDeck({
+            name: nom,
+            ownerId: localStorage.id,
+            cards: cartes
+        });
+
+        console.log('Deck créé :', response);
+    } catch (error) {
+        console.error('Erreur lors de la création du deck :', error);
+    }
 };
+
+
 
 onMounted(() => {
     fetchAll();
@@ -39,7 +66,7 @@ onMounted(() => {
 
 <template>
 
-<h3 v-if="deck.length > 0">Mon deck ({{ list.length }} carte(s))</h3>
+<h3 v-if="deck.length > 0">Mon deck ({{ deck.length }} carte(s))</h3>
 
 <n-form >
     <n-form-item >
@@ -51,7 +78,7 @@ onMounted(() => {
   </n-form>
   
   <div class="container">
-    <PokemonCard v-for="pokemon in deck" :key="pokemon.id" :pokemon="pokemon" />
+    <PokemonCard v-for="pokemon in deck" :key="pokemon.id" :pokemon="pokemon" @click="supprimeDeck(pokemon)"/>
   </div>
 
 <hr/>
@@ -64,11 +91,7 @@ onMounted(() => {
     
 
     <div class="container">
-    <PokemonCard
-      v-for="pokemon in pokemonfilter"
-      :key="pokemon.id"
-      :pokemon="pokemon"
-      @click="addToDeck(pokemon)" />
+    <PokemonCard v-for="pokemon in pokemonfilter" :key="pokemon.id" :pokemon="pokemon" @click="ajoutDeck(pokemon)" />
   </div>
 </template>
 
