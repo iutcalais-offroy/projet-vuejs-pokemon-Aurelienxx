@@ -3,6 +3,17 @@ import { ref, onMounted } from 'vue';
 import { fetchAllPokemon } from './../store/Pokemon.store.ts';
 
 const list = ref([]);
+const pokemonsearch = ref('');
+
+const pokemonfilter = computed(() => {
+    if (!pokemonsearch.value) {
+        return list.value;
+    }
+
+    return list.value.filter(pokemon => 
+        pokemon.name.toLowerCase().includes(pokemonsearch.value.toLowerCase())
+    );
+});
 
 const fetchAll = async () => {
     try {
@@ -43,9 +54,17 @@ const getTypeColor = (type) => {
 
 </script>
 
+
 <template>
+
+    <n-form>
+    <n-form-item >
+      <n-input v-model:value="pokemonsearch" placeholder="Rechercher un pokemon..." @keydown.enter.prevent />
+    </n-form-item>
+    </n-form>
+    <HR></HR>
   <div class="container">
-    <div v-for="pokemon in list" :key="pokemon.id" class="card">
+    <div v-for="pokemon in pokemonfilter" :key="pokemon.id" class="card">
       <img :src="pokemon.imageUrl" :alt="pokemon.name" class="pokemon-img">
       
       <div class="card-body">
