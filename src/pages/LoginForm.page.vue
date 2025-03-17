@@ -45,6 +45,9 @@
 <script setup>
 import { ref } from 'vue';
 import { loginUser, createUser } from './../store/User.store.ts';
+import {useRouter} from 'vue-router'
+
+const router = useRouter();
 
 const email = ref('');
 const mdp = ref('');
@@ -58,7 +61,12 @@ const Login = async () => {
             email: email.value,
             password: mdp.value
         });
-        console.log('Utilisateur connecté :', response);
+        const TOKEN = response.token;
+        const ID = response.user.id;
+
+        localStorage.token = TOKEN;
+        localStorage.id = ID;
+        router.push('/deck-builder');
     } catch (error) {
         console.error('Erreur de connexion :', error);
     }
