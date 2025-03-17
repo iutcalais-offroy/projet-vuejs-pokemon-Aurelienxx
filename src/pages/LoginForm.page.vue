@@ -84,6 +84,8 @@ const Create = async () => {
             password: registerMdp.value
         });
         console.log('Utilisateur créé :', response);
+
+        window.location.reload();
     } catch (error) {
         console.error('Erreur lors de l’inscription :', error);
     }
