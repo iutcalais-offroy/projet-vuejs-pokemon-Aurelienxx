@@ -7,16 +7,20 @@
           <h3>{{ pokemon.name }}</h3>
           <span class="hp">PV {{ pokemon.lifePoints }}</span>
         </div>
-  
-        <span class="type" :style="{ backgroundColor: getTypeColor(pokemon.type.name) }">
+        <div v-if="pokemon && pokemon.type">
+          <span class="type" :style="{ backgroundColor: getTypeColor(pokemon.type.name) }">
           {{ pokemon.type.name }}
         </span>
+        </div>
+        
   
         <p class="info">Taille: {{ pokemon.height }}m | Poids: {{ pokemon.weight }}kg</p>
   
+        <div v-if="pokemon && pokemon.attack !== undefined">
         <div class="attack">
           <span class="attack-name">{{ pokemon.attack.name }}</span>
           <span class="attack-damage">{{ pokemon.attack.damages }} PV</span>
+        </div>
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { fetchAllPokemon, createDeck } from './../store/Pokemon.store.ts';
+import { fetchAllPokemon } from './../store/Pokemon.store.ts';
+import { createDeck } from './../store/Deck.store.ts';
 import PokemonCard from './../components/PokemonCard.vue';
 
 const list = ref([]);
@@ -47,7 +48,7 @@ const CreateDeck = async (nom) => {
             name: nom,
             ownerId: localStorage.id,
             cards: cartes
-        },localStorage.token);
+        });
 
         console.log('Deck créé :', response);
     } catch (error) {

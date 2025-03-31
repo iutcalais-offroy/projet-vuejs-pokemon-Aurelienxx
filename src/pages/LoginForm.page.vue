@@ -61,8 +61,10 @@ const Login = async () => {
             email: email.value,
             password: mdp.value
         });
+        console.log(response);
         const TOKEN = response.token;
-        const ID = response.user.id;
+        //const ID = response.user.id;
+        const ID = response.id;
 
         localStorage.token = TOKEN;
         localStorage.id = ID;

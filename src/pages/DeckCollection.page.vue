@@ -3,7 +3,7 @@ import { ref, computed, onMounted } from 'vue';
 import axios from 'axios';
 
 
-onMounted(fetchDecks);
+//onMounted(fetchDecks);
 </script>
 
 <template>
