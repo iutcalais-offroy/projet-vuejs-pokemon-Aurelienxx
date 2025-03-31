@@ -47,7 +47,7 @@ const CreateDeck = async (nom) => {
             name: nom,
             ownerId: localStorage.id,
             cards: cartes
-        });
+        },localStorage.token);
 
         console.log('Deck créé :', response);
     } catch (error) {
@@ -70,8 +70,8 @@ onMounted(() => {
 
 <n-form >
     <n-form-item >
-      <n-input placeholder="Nom du deck..."/>
-      <n-button  @click="">
+      <n-input v-model:value="deckname" placeholder="Nom du deck..."/>
+      <n-button  @click="CreateDeck(deckname)">
         Sauvegarder
       </n-button>
     </n-form-item>
